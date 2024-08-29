@@ -856,23 +856,19 @@ class ShowEpubState extends State<ShowEpub> {
                               color: widget.accentColor, width: 3.h)),
                       elevation: 0,
                       leading: Row(children:[
-                        IconButton(
-                        onPressed: () => Navigator.pop(context),
-                        icon: Icon(
-                          Icons.arrow_back,
-                          color: fontColor,
-                          size: 20.h,
-                        ),
-                    
-                      ),
-                        IconButton(
-                        onPressed: openTableOfContents,
-                        icon: Icon(
+                   
+                        InkWell(onTap: () => Navigator.pop(context),child:  Icon(
+              Icons.arrow_back,
+              color: fontColor,
+              size: 20.h,
+            ),),
+
+                         InkWell(onTap: () => openTableOfContents,child:  Icon(
                           Icons.menu,
                           color: fontColor,
                           size: 20.h,
-                        ),
-                      )
+                        ),),
+                        
                       ]),
                       actions: [
                         InkWell(
