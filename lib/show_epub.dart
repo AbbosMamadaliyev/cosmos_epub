@@ -856,7 +856,7 @@ class ShowEpubState extends State<ShowEpub> {
                       elevation: 0,
                       leading: Row(children:[
                         IconButton(
-                        onPressed: () => Get.back(),
+                        onPressed: () => Navigator.pop(context),
                         icon: Icon(
                           Icons.arrow_back,
                           color: fontColor,
