@@ -855,21 +855,33 @@ class ShowEpubState extends State<ShowEpub> {
                           bottom: BorderSide(
                               color: widget.accentColor, width: 3.h)),
                       elevation: 0,
-                      leading: Row(children:[
+                      leading: Padding(
+          padding: EdgeInsets.only(left: 10.0.w, bottom: 10.h, top: 10.h),
+          // child: GestureDetector(
+          //     onTap: () {
+          //       advancedDrawerController.showDrawer();
+          //     },
+          //     child: Padding(
+          //       padding: const EdgeInsets.all(6.0),
+          //       child: SvgPicture.asset("assets/icons/drawer.svg", width: 30.w, height: 30.h),
+          //     )),
+          child: Row(children:[
                    
                         InkWell(onTap: () => Navigator.pop(context),child:  Icon(
               Icons.arrow_back,
               color: fontColor,
               size: 20.h,
             ),),
-
+              SizedBox(width: 10.w,),
                          InkWell(onTap: () => openTableOfContents,child:  Icon(
                           Icons.menu,
                           color: fontColor,
                           size: 20.h,
                         ),),
                         
-                      ]),
+                      ])
+        ),
+                
                       actions: [
                         InkWell(
                             onTap: () {
