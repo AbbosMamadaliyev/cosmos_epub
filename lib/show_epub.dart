@@ -842,6 +842,7 @@ class ShowEpubState extends State<ShowEpub> {
                     padding: EdgeInsets.only(top: 3.h),
                     child: AppBar(
                       centerTitle: true,
+                       leadingWidth: 90,
                       title: Text(
                         bookTitle,
                         style: TextStyle(
