@@ -854,14 +854,25 @@ class ShowEpubState extends State<ShowEpub> {
                           bottom: BorderSide(
                               color: widget.accentColor, width: 3.h)),
                       elevation: 0,
-                      leading: IconButton(
+                      leading: Row(children:[
+                        IconButton(
+                        onPressed: () => Get.back(),
+                        icon: Icon(
+                          Icons.arrow_back,
+                          color: fontColor,
+                          size: 20.h,
+                        ),
+                    
+                      ),
+                        IconButton(
                         onPressed: openTableOfContents,
                         icon: Icon(
                           Icons.menu,
                           color: fontColor,
                           size: 20.h,
                         ),
-                      ),
+                      )
+                      ]),
                       actions: [
                         InkWell(
                             onTap: () {
