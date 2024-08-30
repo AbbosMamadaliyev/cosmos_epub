@@ -873,11 +873,11 @@ class ShowEpubState extends State<ShowEpub> {
               size: 20.h,
             ),),
               SizedBox(width: 10.w,),
-                         InkWell(onTap: () => openTableOfContents,child:  Icon(
-                          Icons.menu,
-                          color: fontColor,
-                          size: 20.h,
-                        ),),
+                          InkWell(onTap: () async => await openTableOfContents(), child: Icon(
+                              Icons.menu,
+                              color: fontColor,
+                              size: 20.h,
+                            ),),
                         
                       ])
         ),
