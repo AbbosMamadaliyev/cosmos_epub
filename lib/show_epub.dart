@@ -898,24 +898,24 @@ class ShowEpubState extends State<ShowEpub> {
                                     fontWeight: FontWeight.bold),
                               ),
                             )),
-                        SizedBox(
-                          width: 5.w,
-                        ),
-                        InkWell(
-                            onTap: () async {
-                              setState(() {
-                                showBrightnessWidget = true;
-                              });
-                              await Future.delayed(const Duration(seconds: 7));
-                              setState(() {
-                                showBrightnessWidget = false;
-                              });
-                            },
-                            child: Icon(
-                              Icons.brightness_high_sharp,
-                              size: 20.h,
-                              color: fontColor,
-                            )),
+                        // SizedBox(
+                        //   width: 5.w,
+                        // ),
+                        // InkWell(
+                        //     onTap: () async {
+                        //       setState(() {
+                        //         showBrightnessWidget = true;
+                        //       });
+                        //       await Future.delayed(const Duration(seconds: 7));
+                        //       setState(() {
+                        //         showBrightnessWidget = false;
+                        //       });
+                        //     },
+                        //     child: Icon(
+                        //       Icons.brightness_high_sharp,
+                        //       size: 20.h,
+                        //       color: fontColor,
+                        //     )),
                         SizedBox(
                           width: 10.w,
                         )
