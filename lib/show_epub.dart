@@ -120,8 +120,7 @@ class ShowEpubState extends State<ShowEpub> {
     // allFonts = GoogleFonts.asMap().cast<String, String>();
     // fontNames = allFonts.keys.toList();
     // selectedTextStyle = GoogleFonts.getFont(selectedFont).fontFamily!;
-    selectedTextStyle =
-        fontNames.where((element) => element == selectedFont).first;
+    selectedTextStyle = fontNames.where((element) => element == selectedFont).first;
 
     getTitleFromXhtml();
     reLoadChapter(init: true);
@@ -159,8 +158,7 @@ class ShowEpubState extends State<ShowEpub> {
   }
 
   reLoadChapter({bool init = false, int index = -1}) async {
-    int currentIndex =
-        bookProgress.getBookProgress(bookId).currentChapterIndex ?? 0;
+    int currentIndex = bookProgress.getBookProgress(bookId).currentChapterIndex ?? 0;
 
     setState(() {
       loadChapterFuture = loadChapter(
@@ -179,27 +177,22 @@ class ShowEpubState extends State<ShowEpub> {
       String? chapterTitle = chapter.Title;
       List<LocalChapterModel> subChapters = [];
       for (var element in chapter.SubChapters!) {
-        subChapters.add(
-            LocalChapterModel(chapter: element.Title!, isSubChapter: true));
+        subChapters.add(LocalChapterModel(chapter: element.Title!, isSubChapter: true));
       }
 
-      chaptersList.add(LocalChapterModel(
-          chapter: chapterTitle ?? '...', isSubChapter: false));
+      chaptersList.add(LocalChapterModel(chapter: chapterTitle ?? '...', isSubChapter: false));
 
       chaptersList += subChapters;
     }));
 
     ///Choose initial chapter
-    if (widget.starterChapter >= 0 &&
-        widget.starterChapter < chaptersList.length) {
+    if (widget.starterChapter >= 0 && widget.starterChapter < chaptersList.length) {
       setupNavButtons();
-      await updateContentAccordingChapter(
-          index == -1 ? widget.starterChapter : index);
+      await updateContentAccordingChapter(index == -1 ? widget.starterChapter : index);
     } else {
       setupNavButtons();
       await updateContentAccordingChapter(0);
-      CustomToast.showToast(
-          "Invalid chapter number. Range [0-${chaptersList.length}]");
+      CustomToast.showToast("Invalid chapter number. Range [0-${chaptersList.length}]");
     }
   }
 
@@ -240,8 +233,7 @@ class ShowEpubState extends State<ShowEpub> {
   }
 
   bool isHTML(String str) {
-    final RegExp htmlRegExp =
-        RegExp('<[^>]*>', multiLine: true, caseSensitive: false);
+    final RegExp htmlRegExp = RegExp('<[^>]*>', multiLine: true, caseSensitive: false);
     return htmlRegExp.hasMatch(str);
   }
 
@@ -282,9 +274,7 @@ class ShowEpubState extends State<ShowEpub> {
         backgroundColor: backColor,
         enableDrag: true,
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20.r),
-                topRight: Radius.circular(20.r))),
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(20.r), topRight: Radius.circular(20.r))),
         builder: (context) {
           return SingleChildScrollView(
               child: StatefulBuilder(
@@ -293,8 +283,7 @@ class ShowEpubState extends State<ShowEpub> {
                         child: Column(
                           children: [
                             Container(
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: 10.h, vertical: 8.w),
+                              margin: EdgeInsets.symmetric(horizontal: 10.h, vertical: 8.w),
                               height: 45.h,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -378,66 +367,42 @@ class ShowEpubState extends State<ShowEpub> {
                             ),
                             Expanded(
                               child: Container(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 20.h),
+                                  padding: EdgeInsets.symmetric(horizontal: 20.h),
                                   child: Column(
                                     children: [
                                       StatefulBuilder(
-                                        builder: (BuildContext context,
-                                                StateSetter setState) =>
-                                            Theme(
-                                          data: Theme.of(context)
-                                              .copyWith(canvasColor: backColor),
+                                        builder: (BuildContext context, StateSetter setState) => Theme(
+                                          data: Theme.of(context).copyWith(canvasColor: backColor),
                                           child: DropdownButtonHideUnderline(
                                             child: DropdownButton<String>(
                                                 value: selectedFont,
                                                 isExpanded: true,
                                                 menuMaxHeight: 400.h,
                                                 onChanged: (newValue) {
-                                                  selectedFont =
-                                                      newValue ?? 'Segoe';
+                                                  selectedFont = newValue ?? 'Segoe';
 
-                                                  selectedTextStyle = fontNames
-                                                      .where((element) =>
-                                                          element ==
-                                                          selectedFont)
-                                                      .first;
+                                                  selectedTextStyle =
+                                                      fontNames.where((element) => element == selectedFont).first;
 
-                                                  gs.write(
-                                                      libFont, selectedFont);
+                                                  gs.write(libFont, selectedFont);
 
                                                   ///For updating inside
                                                   setState(() {});
                                                   controllerPaging.paginate();
                                                   updateUI();
                                                 },
-                                                items: fontNames.map<
-                                                    DropdownMenuItem<
-                                                        String>>((String font) {
-                                                  return DropdownMenuItem<
-                                                      String>(
+                                                items: fontNames.map<DropdownMenuItem<String>>((String font) {
+                                                  return DropdownMenuItem<String>(
                                                     value: font,
                                                     child: Text(
                                                       font,
                                                       style: TextStyle(
-                                                          color: selectedFont ==
-                                                                  font
-                                                              ? widget
-                                                                  .accentColor
-                                                              : fontColor,
-                                                          package:
-                                                              'cosmos_epub',
-                                                          fontSize:
-                                                              context.isTablet
-                                                                  ? 10.sp
-                                                                  : 15.sp,
-                                                          fontWeight:
-                                                              selectedFont ==
-                                                                      font
-                                                                  ? FontWeight
-                                                                      .bold
-                                                                  : FontWeight
-                                                                      .normal,
+                                                          color: selectedFont == font ? widget.accentColor : fontColor,
+                                                          package: 'cosmos_epub',
+                                                          fontSize: context.isTablet ? 10.sp : 15.sp,
+                                                          fontWeight: selectedFont == font
+                                                              ? FontWeight.bold
+                                                              : FontWeight.normal,
                                                           fontFamily: font),
                                                     ),
                                                   );
@@ -450,23 +415,19 @@ class ShowEpubState extends State<ShowEpub> {
                                           Text(
                                             "Aa",
                                             style: TextStyle(
-                                                fontSize: 15.sp,
-                                                color: fontColor,
-                                                fontWeight: FontWeight.bold),
+                                                fontSize: 15.sp, color: fontColor, fontWeight: FontWeight.bold),
                                           ),
                                           Expanded(
                                             child: Slider(
-                                              activeColor: staticThemeId == 4
-                                                  ? Colors.grey.withOpacity(0.8)
-                                                  : Colors.blue,
+                                              activeColor:
+                                                  staticThemeId == 4 ? Colors.grey.withOpacity(0.8) : Colors.blue,
                                               value: _fontSizeProgress,
                                               min: 15.0,
                                               max: 30.0,
                                               onChangeEnd: (double value) {
                                                 _fontSize = value;
 
-                                                gs.write(
-                                                    libFontSize, _fontSize);
+                                                gs.write(libFontSize, _fontSize);
 
                                                 ///For updating outside
                                                 updateUI();
@@ -483,9 +444,7 @@ class ShowEpubState extends State<ShowEpub> {
                                           Text(
                                             "Aa",
                                             style: TextStyle(
-                                                color: fontColor,
-                                                fontSize: 20.sp,
-                                                fontWeight: FontWeight.bold),
+                                                color: fontColor, fontSize: 20.sp, fontWeight: FontWeight.bold),
                                           )
                                         ],
                                       )
@@ -555,8 +514,7 @@ class ShowEpubState extends State<ShowEpub> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context,
-        designSize: const Size(DESIGN_WIDTH, DESIGN_HEIGHT));
+    ScreenUtil.init(context, designSize: const Size(DESIGN_WIDTH, DESIGN_HEIGHT));
 
     return WillPopScope(
         onWillPop: backPress,
@@ -586,18 +544,15 @@ class ShowEpubState extends State<ShowEpub> {
                                 default:
                                   {
                                     if (widget.shouldOpenDrawer) {
-                                      WidgetsBinding.instance
-                                          .addPostFrameCallback((_) {
+                                      WidgetsBinding.instance.addPostFrameCallback((_) {
                                         openTableOfContents();
                                       });
 
                                       widget.shouldOpenDrawer = false;
                                     }
 
-                                    var currentChapterIndex = bookProgress
-                                            .getBookProgress(bookId)
-                                            .currentChapterIndex ??
-                                        0;
+                                    var currentChapterIndex =
+                                        bookProgress.getBookProgress(bookId).currentChapterIndex ?? 0;
 
                                     return PagingWidget(
                                       textContent,
@@ -605,10 +560,7 @@ class ShowEpubState extends State<ShowEpub> {
 
                                       ///Do we need this to the production
                                       lastWidget: null,
-                                      starterPageIndex: bookProgress
-                                              .getBookProgress(bookId)
-                                              .currentPageIndex ??
-                                          0,
+                                      starterPageIndex: bookProgress.getBookProgress(bookId).currentPageIndex ?? 0,
                                       style: TextStyle(
                                           backgroundColor: backColor,
                                           fontSize: _fontSize.sp,
@@ -628,16 +580,13 @@ class ShowEpubState extends State<ShowEpub> {
                                       },
                                       onPageFlip: (currentPage, totalPages) {
                                         if (widget.onPageFlip != null) {
-                                          widget.onPageFlip!(
-                                              currentPage, totalPages);
+                                          widget.onPageFlip!(currentPage, totalPages);
                                         }
 
                                         if (currentPage == totalPages - 1) {
-                                          bookProgress.setCurrentPageIndex(
-                                              bookId, 0);
+                                          bookProgress.setCurrentPageIndex(bookId, 0);
                                         } else {
-                                          bookProgress.setCurrentPageIndex(
-                                              bookId, currentPage);
+                                          bookProgress.setCurrentPageIndex(bookId, currentPage);
                                         }
 
                                         if (isLastPage) {
@@ -677,9 +626,9 @@ class ShowEpubState extends State<ShowEpub> {
 
                                         updateUI();
                                       },
-                                      chapterTitle:
-                                          chaptersList[currentChapterIndex]
-                                              .chapter,
+                                      chapterTitle: chaptersList.isNotEmpty
+                                          ? chaptersList[currentChapterIndex].chapter
+                                          : 'No chapters',
                                       totalChapters: chaptersList.length,
                                     );
                                   }
@@ -695,8 +644,7 @@ class ShowEpubState extends State<ShowEpub> {
                                 height: 150.h,
                                 width: 30.w,
                                 alignment: Alignment.bottomCenter,
-                                margin:
-                                    EdgeInsets.only(bottom: 40.h, right: 15.w),
+                                margin: EdgeInsets.only(bottom: 40.h, right: 15.w),
                                 child: Column(
                                   children: [
                                     Icon(
@@ -711,29 +659,17 @@ class ShowEpubState extends State<ShowEpub> {
                                           quarterTurns: -1,
                                           child: SliderTheme(
                                               data: SliderThemeData(
-                                                activeTrackColor:
-                                                    staticThemeId == 4
-                                                        ? Colors.white
-                                                        : Colors.blue,
-                                                disabledThumbColor:
-                                                    Colors.transparent,
-                                                inactiveTrackColor: Colors.grey
-                                                    .withOpacity(0.5),
+                                                activeTrackColor: staticThemeId == 4 ? Colors.white : Colors.blue,
+                                                disabledThumbColor: Colors.transparent,
+                                                inactiveTrackColor: Colors.grey.withOpacity(0.5),
                                                 trackHeight: 5.0,
 
-                                                thumbColor: staticThemeId == 4
-                                                    ? Colors.grey
-                                                        .withOpacity(0.8)
-                                                    : Colors.blue,
-                                                thumbShape:
-                                                    RoundSliderThumbShape(
-                                                        enabledThumbRadius:
-                                                            0.r),
+                                                thumbColor:
+                                                    staticThemeId == 4 ? Colors.grey.withOpacity(0.8) : Colors.blue,
+                                                thumbShape: RoundSliderThumbShape(enabledThumbRadius: 0.r),
                                                 // Adjust the size of the thumb
-                                                overlayShape:
-                                                    RoundSliderOverlayShape(
-                                                        overlayRadius: 10
-                                                            .r), // Adjust the size of the overlay
+                                                overlayShape: RoundSliderOverlayShape(
+                                                    overlayRadius: 10.r), // Adjust the size of the overlay
                                               ),
                                               child: Slider(
                                                 value: brightnessLevel,
@@ -765,8 +701,7 @@ class ShowEpubState extends State<ShowEpub> {
                         decoration: BoxDecoration(
                           color: backColor,
                           border: Border(
-                            top: BorderSide(
-                                width: 3.w, color: widget.accentColor),
+                            top: BorderSide(width: 3.w, color: widget.accentColor),
                           ),
                         ),
                         child: Row(
@@ -794,10 +729,7 @@ class ShowEpubState extends State<ShowEpub> {
                               flex: 10,
                               child: Text(
                                 chaptersList.isNotEmpty
-                                    ? chaptersList[bookProgress
-                                                .getBookProgress(bookId)
-                                                .currentChapterIndex ??
-                                            0]
+                                    ? chaptersList[bookProgress.getBookProgress(bookId).currentChapterIndex ?? 0]
                                         .chapter
                                     : 'Loading...',
                                 maxLines: 1,
@@ -842,46 +774,45 @@ class ShowEpubState extends State<ShowEpub> {
                     padding: EdgeInsets.only(top: 3.h),
                     child: AppBar(
                       centerTitle: true,
-                       leadingWidth: 90,
+                      leadingWidth: 90,
                       title: Text(
                         bookTitle,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16.sp,
-                            color: fontColor),
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp, color: fontColor),
                       ),
                       backgroundColor: backColor,
-                      shape: Border(
-                          bottom: BorderSide(
-                              color: widget.accentColor, width: 3.h)),
+                      shape: Border(bottom: BorderSide(color: widget.accentColor, width: 3.h)),
                       elevation: 0,
                       leading: Padding(
-          padding: EdgeInsets.only(left: 10.0.w, bottom: 10.h, top: 10.h),
-          // child: GestureDetector(
-          //     onTap: () {
-          //       advancedDrawerController.showDrawer();
-          //     },
-          //     child: Padding(
-          //       padding: const EdgeInsets.all(6.0),
-          //       child: SvgPicture.asset("assets/icons/drawer.svg", width: 30.w, height: 30.h),
-          //     )),
-          child: Row(children:[
-                   
-                        InkWell(onTap: () => Navigator.pop(context),child:  Icon(
-              Icons.arrow_back,
-              color: fontColor,
-              size: 20.h,
-            ),),
-              SizedBox(width: 10.w,),
-                          InkWell(onTap: () async => await openTableOfContents(), child: Icon(
-                              Icons.menu,
-                              color: fontColor,
-                              size: 20.h,
-                            ),),
-                        
-                      ])
-        ),
-                
+                          padding: EdgeInsets.only(left: 10.0.w, bottom: 10.h, top: 10.h),
+                          // child: GestureDetector(
+                          //     onTap: () {
+                          //       advancedDrawerController.showDrawer();
+                          //     },
+                          //     child: Padding(
+                          //       padding: const EdgeInsets.all(6.0),
+                          //       child: SvgPicture.asset("assets/icons/drawer.svg", width: 30.w, height: 30.h),
+                          //     )),
+                          child: Row(children: [
+                            InkWell(
+                              onTap: () => Navigator.pop(context),
+                              child: Icon(
+                                Icons.arrow_back,
+                                color: fontColor,
+                                size: 20.h,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            InkWell(
+                              onTap: () async => await openTableOfContents(),
+                              child: Icon(
+                                Icons.menu,
+                                color: fontColor,
+                                size: 20.h,
+                              ),
+                            ),
+                          ])),
                       actions: [
                         InkWell(
                             onTap: () {
@@ -892,10 +823,7 @@ class ShowEpubState extends State<ShowEpub> {
                               alignment: Alignment.center,
                               child: Text(
                                 "Aa",
-                                style: TextStyle(
-                                    fontSize: 18.sp,
-                                    color: fontColor,
-                                    fontWeight: FontWeight.bold),
+                                style: TextStyle(fontSize: 18.sp, color: fontColor, fontWeight: FontWeight.bold),
                               ),
                             )),
                         // SizedBox(
